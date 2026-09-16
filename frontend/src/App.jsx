@@ -1,16 +1,9 @@
-import { StrictMode, useEffect, useState } from 'react'
-import { createRoot } from 'react-dom/client'
-
+import { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
 import meses from './data/data'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-)
 
 function App() {
   const [mes, setMes] = useState(meses[0])
@@ -62,11 +55,205 @@ function App() {
   const fundosPlanejadosDoMes = fundosPlanejados[mes] || []
 
   useEffect(() => {
+
+    // RECEITAS
     fetch('http://127.0.0.1:8000/api/receitas/')
       .then(response => response.json())
       .then(data => {
-        setReceitas(data)
+
+        const receitasPorMes = {}
+
+        data.forEach(receita => {
+
+          if (!receitasPorMes[receita.mes]) {
+            receitasPorMes[receita.mes] = []
+          }
+
+          receitasPorMes[receita.mes].push({
+            id: receita.id,
+            descricao: receita.descricao,
+            valor: Number(receita.valor),
+            mes: receita.mes
+          })
+        })
+
+        setReceitas(receitasPorMes)
       })
+
+
+    // DESPESAS
+    fetch('http://127.0.0.1:8000/api/despesas/')
+      .then(response => response.json())
+      .then(data => {
+
+        const despesasPorMes = {}
+
+        data.forEach(despesa => {
+
+          if (!despesasPorMes[despesa.mes]) {
+            despesasPorMes[despesa.mes] = []
+          }
+
+          despesasPorMes[despesa.mes].push({
+            id: despesa.id,
+            descricao: despesa.descricao,
+            valor: Number(despesa.valor),
+            mes: despesa.mes
+          })
+        })
+
+        setDespesas(despesasPorMes)
+      })
+
+
+    // INVESTIMENTOS
+    fetch('http://127.0.0.1:8000/api/investimentos/')
+      .then(response => response.json())
+      .then(data => {
+
+        const investimentosPorMes = {}
+
+        data.forEach(investimento => {
+
+          if (!investimentosPorMes[investimento.mes]) {
+            investimentosPorMes[investimento.mes] = []
+          }
+
+          investimentosPorMes[investimento.mes].push({
+            id: investimento.id,
+            descricao: investimento.descricao,
+            valor: Number(investimento.valor),
+            mes: investimento.mes
+          })
+        })
+
+        setInvestimentos(investimentosPorMes)
+      })
+
+
+    // FUNDO DE EMERGÊNCIA
+    fetch('http://127.0.0.1:8000/api/fundo/')
+      .then(response => response.json())
+      .then(data => {
+
+        const fundoPorMes = {}
+
+        data.forEach(fundo => {
+
+          if (!fundoPorMes[fundo.mes]) {
+            fundoPorMes[fundo.mes] = []
+          }
+
+          fundoPorMes[fundo.mes].push({
+            id: fundo.id,
+            descricao: fundo.descricao,
+            valor: Number(fundo.valor),
+            mes: fundo.mes
+          })
+        })
+
+        setFundoEmergencia(fundoPorMes)
+      })
+
+    // RECEITAS PLANEJADAS
+    fetch('http://127.0.0.1:8000/api/receitas-planejadas/')
+      .then(response => response.json())
+      .then(data => {
+
+        const receitasPlanejadasPorMes = {}
+
+        data.forEach(receita => {
+
+          if (!receitasPlanejadasPorMes[receita.mes]) {
+            receitasPlanejadasPorMes[receita.mes] = []
+          }
+
+          receitasPlanejadasPorMes[receita.mes].push({
+            id: receita.id,
+            descricao: receita.descricao,
+            valor: Number(receita.valor),
+            mes: receita.mes
+          })
+        })
+
+        setReceitasPlanejadas(receitasPlanejadasPorMes)
+      })
+
+
+    // DESPESAS PLANEJADAS
+    fetch('http://127.0.0.1:8000/api/despesas-planejadas/')
+      .then(response => response.json())
+      .then(data => {
+
+        const despesasPlanejadasPorMes = {}
+
+        data.forEach(despesa => {
+
+          if (!despesasPlanejadasPorMes[despesa.mes]) {
+            despesasPlanejadasPorMes[despesa.mes] = []
+          }
+
+          despesasPlanejadasPorMes[despesa.mes].push({
+            id: despesa.id,
+            descricao: despesa.descricao,
+            valor: Number(despesa.valor),
+            mes: despesa.mes
+          })
+        })
+
+        setDespesasPlanejadas(despesasPlanejadasPorMes)
+      })
+
+
+    // INVESTIMENTOS PLANEJADOS
+    fetch('http://127.0.0.1:8000/api/investimentos-planejados/')
+      .then(response => response.json())
+      .then(data => {
+
+        const investimentosPlanejadosPorMes = {}
+
+        data.forEach(investimento => {
+
+          if (!investimentosPlanejadosPorMes[investimento.mes]) {
+            investimentosPlanejadosPorMes[investimento.mes] = []
+          }
+
+          investimentosPlanejadosPorMes[investimento.mes].push({
+            id: investimento.id,
+            descricao: investimento.descricao,
+            valor: Number(investimento.valor),
+            mes: investimento.mes
+          })
+        })
+
+        setInvestimentosPlanejados(investimentosPlanejadosPorMes)
+      })
+
+
+    // FUNDO PLANEJADO
+    fetch('http://127.0.0.1:8000/api/fundo-planejado/')
+      .then(response => response.json())
+      .then(data => {
+
+        const fundosPlanejadosPorMes = {}
+
+        data.forEach(fundo => {
+
+          if (!fundosPlanejadosPorMes[fundo.mes]) {
+            fundosPlanejadosPorMes[fundo.mes] = []
+          }
+
+          fundosPlanejadosPorMes[fundo.mes].push({
+            id: fundo.id,
+            descricao: fundo.descricao,
+            valor: Number(fundo.valor),
+            mes: fundo.mes
+          })
+        })
+
+        setFundosPlanejados(fundosPlanejadosPorMes)
+      })
+
   }, [])
 
   console.log(receitas)
@@ -78,26 +265,51 @@ function App() {
   function adicionarReceita() {
     if (valorReceita === '') return
 
-    setReceitas({
-      ...receitas,
-      [mes]: [
-        ...(receitas[mes] || []),
-        {
-          descricao: descricaoReceita,
-          valor: Number(valorReceita)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/receitas/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoReceita,
+        valor: Number(valorReceita),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novaReceita = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setReceitas(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novaReceita
+          ]
+        }))
+      })
 
     setDescricaoReceita('')
     setValorReceita('')
   }
 
-  function removerReceita(index) {
-    setReceitas({
-      ...receitas,
-      [mes]: receitas[mes].filter((_, i) => i !== index)
+  function removerReceita(id) {
+    fetch(`http://127.0.0.1:8000/api/receitas/${id}/`, {
+      method: 'DELETE',
     })
+      .then(() => {
+        setReceitas(prev => ({
+          ...prev,
+          [mes]: prev[mes].filter(
+            receita => receita.id !== id
+          )
+        }))
+      })
   }
 
   /* -------------------------
@@ -107,55 +319,108 @@ function App() {
   function adicionarDespesa() {
     if (valorDespesa === '') return
 
-    setDespesas({
-      ...despesas,
-      [mes]: [
-        ...(despesas[mes] || []),
-        {
-          descricao: descricaoDespesa,
-          valor: Number(valorDespesa)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/despesas/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoDespesa,
+        valor: Number(valorDespesa),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novaDespesa = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setDespesas(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novaDespesa
+          ]
+        }))
+      })
 
     setDescricaoDespesa('')
     setValorDespesa('')
   }
 
-  function removerDespesa(index) {
-    setDespesas({
-      ...despesas,
-      [mes]: despesas[mes].filter((_, i) => i !== index)
+  function removerDespesa(id) {
+    fetch(`http://127.0.0.1:8000/api/despesas/${id}/`, {
+      method: 'DELETE',
     })
+      .then(() => {
+        setDespesas({
+          ...despesas,
+          [mes]: despesas[mes].filter(
+            despesa => despesa.id !== id
+          )
+        })
+      })
   }
 
+
+
   /* -------------------------
-   INVESTIMENTOS
+    INVESTIMENTOS
   ------------------------- */
 
   function adicionarInvestimento() {
     if (valorInvestimento === '') return
 
-    setInvestimentos({
-      ...investimentos,
-      [mes]: [
-        ...(investimentos[mes] || []),
-        {
-          descricao: descricaoInvestimento,
-          valor: Number(valorInvestimento)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/investimentos/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoInvestimento,
+        valor: Number(valorInvestimento),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novoInvestimento = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setInvestimentos(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novoInvestimento
+          ]
+        }))
+      })
 
     setDescricaoInvestimento('')
     setValorInvestimento('')
   }
 
-  function removerInvestimento(index) {
-    setInvestimentos({
-      ...investimentos,
-      [mes]: investimentos[mes].filter((_, i) => i !== index)
+
+  function removerInvestimento(id) {
+    fetch(`http://127.0.0.1:8000/api/investimentos/${id}/`, {
+      method: 'DELETE',
     })
+      .then(() => {
+        setInvestimentos(prev => ({
+          ...prev,
+          [mes]: prev[mes].filter(
+            investimento => investimento.id !== id
+          )
+        }))
+      })
   }
 
 
@@ -166,26 +431,52 @@ function App() {
   function adicionarFundo() {
     if (valorFundo === '') return
 
-    setFundoEmergencia({
-      ...fundoEmergencia,
-      [mes]: [
-        ...(fundoEmergencia[mes] || []),
-        {
-          descricao: descricaoFundo,
-          valor: Number(valorFundo)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/fundo/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoFundo,
+        valor: Number(valorFundo),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novoFundo = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setFundoEmergencia(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novoFundo
+          ]
+        }))
+      })
 
     setDescricaoFundo('')
     setValorFundo('')
   }
 
-  function removerFundo(index) {
-    setFundoEmergencia({
-      ...fundoEmergencia,
-      [mes]: fundoEmergencia[mes].filter((_, i) => i !== index)
+
+  function removerFundo(id) {
+    fetch(`http://127.0.0.1:8000/api/fundo/${id}/`, {
+      method: 'DELETE',
     })
+      .then(() => {
+        setFundoEmergencia(prev => ({
+          ...prev,
+          [mes]: prev[mes].filter(
+            fundo => fundo.id !== id
+          )
+        }))
+      })
   }
 
   /* -------------------------
@@ -195,100 +486,201 @@ function App() {
   function adicionarReceitaPlanejada() {
     if (valorReceitaPlanejada === '') return
 
-    setReceitasPlanejadas({
-      ...receitasPlanejadas,
-      [mes]: [
-        ...(receitasPlanejadas[mes] || []),
-        {
-          descricao: descricaoReceitaPlanejada,
-          valor: Number(valorReceitaPlanejada)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/receitas-planejadas/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoReceitaPlanejada,
+        valor: Number(valorReceitaPlanejada),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novaReceitaPlanejada = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setReceitasPlanejadas(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novaReceitaPlanejada
+          ]
+        }))
+      })
 
     setDescricaoReceitaPlanejada('')
     setValorReceitaPlanejada('')
   }
 
+  function removerReceitaPlanejada(id) {
+    fetch(`http://127.0.0.1:8000/api/receitas-planejadas/${id}/`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        setReceitasPlanejadas(prev => ({
+          ...prev,
+          [mes]: prev[mes].filter(
+            receita => receita.id !== id
+          )
+        }))
+      })
+  }
+
   function adicionarDespesaPlanejada() {
     if (valorDespesaPlanejada === '') return
 
-    setDespesasPlanejadas({
-      ...despesasPlanejadas,
-      [mes]: [
-        ...(despesasPlanejadas[mes] || []),
-        {
-          descricao: descricaoDespesaPlanejada,
-          valor: Number(valorDespesaPlanejada)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/despesas-planejadas/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoDespesaPlanejada,
+        valor: Number(valorDespesaPlanejada),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novaDespesaPlanejada = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setDespesasPlanejadas(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novaDespesaPlanejada
+          ]
+        }))
+      })
 
     setDescricaoDespesaPlanejada('')
     setValorDespesaPlanejada('')
   }
 
-  function removerDespesaPlanejada(index) {
-    setDespesasPlanejadas({
-      ...despesasPlanejadas,
-      [mes]: despesasPlanejadas[mes].filter(
-        (_, i) => i !== index
-      )
+  function removerDespesaPlanejada(id) {
+    fetch(`http://127.0.0.1:8000/api/despesas-planejadas/${id}/`, {
+      method: 'DELETE',
     })
+      .then(() => {
+        setDespesasPlanejadas(prev => ({
+          ...prev,
+          [mes]: prev[mes].filter(
+            despesa => despesa.id !== id
+          )
+        }))
+      })
   }
 
   function adicionarInvestimentoPlanejado() {
     if (valorInvestimentoPlanejado === '') return
 
-    setInvestimentosPlanejados({
-      ...investimentosPlanejados,
-      [mes]: [
-        ...(investimentosPlanejados[mes] || []),
-        {
-          descricao: descricaoInvestimentoPlanejado,
-          valor: Number(valorInvestimentoPlanejado)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/investimentos-planejados/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoInvestimentoPlanejado,
+        valor: Number(valorInvestimentoPlanejado),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novoInvestimentoPlanejado = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setInvestimentosPlanejados(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novoInvestimentoPlanejado
+          ]
+        }))
+      })
 
     setDescricaoInvestimentoPlanejado('')
     setValorInvestimentoPlanejado('')
   }
 
-  function removerInvestimentoPlanejado(index) {
-    setInvestimentosPlanejados({
-      ...investimentosPlanejados,
-      [mes]: investimentosPlanejados[mes].filter(
-        (_, i) => i !== index
-      )
+  function removerInvestimentoPlanejado(id) {
+    fetch(`http://127.0.0.1:8000/api/investimentos-planejados/${id}/`, {
+      method: 'DELETE',
     })
+      .then(() => {
+        setInvestimentosPlanejados(prev => ({
+          ...prev,
+          [mes]: prev[mes].filter(
+            investimento => investimento.id !== id
+          )
+        }))
+      })
   }
 
   function adicionarFundoPlanejado() {
     if (valorFundoPlanejado === '') return
 
-    setFundosPlanejados({
-      ...fundosPlanejados,
-      [mes]: [
-        ...(fundosPlanejados[mes] || []),
-        {
-          descricao: descricaoFundoPlanejado,
-          valor: Number(valorFundoPlanejado)
-        }
-      ]
+    fetch('http://127.0.0.1:8000/api/fundo-planejado/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        descricao: descricaoFundoPlanejado,
+        valor: Number(valorFundoPlanejado),
+        mes: mes,
+      }),
     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        const novoFundoPlanejado = {
+          ...data,
+          valor: Number(data.valor)
+        }
+
+        setFundosPlanejados(prev => ({
+          ...prev,
+          [mes]: [
+            ...(prev[mes] || []),
+            novoFundoPlanejado
+          ]
+        }))
+      })
 
     setDescricaoFundoPlanejado('')
     setValorFundoPlanejado('')
   }
 
-  function removerFundoPlanejado(index) {
-    setFundosPlanejados({
-      ...fundosPlanejados,
-      [mes]: fundosPlanejados[mes].filter(
-        (_, i) => i !== index
-      )
+  function removerFundoPlanejado(id) {
+    fetch(`http://127.0.0.1:8000/api/fundo-planejado/${id}/`, {
+      method: 'DELETE',
     })
+      .then(() => {
+        setFundosPlanejados(prev => ({
+          ...prev,
+          [mes]: prev[mes].filter(
+            fundo => fundo.id !== id
+          )
+        }))
+      })
   }
 
   /* -------------------------
@@ -296,44 +688,44 @@ function App() {
   ------------------------- */
 
   const totalReceitas = receitasDoMes.reduce(
-    (total, receita) => total + receita.valor,
+    (total, receita) => total + Number(receita.valor),
     0
   )
 
   const totalDespesas = despesasDoMes.reduce(
-    (total, despesa) => total + despesa.valor,
+    (total, despesa) => total + Number(despesa.valor),
     0
   )
 
   const totalInvestimentos = investimentosDoMes.reduce(
-    (total, investimento) => total + investimento.valor,
+    (total, investimento) => total + Number(investimento.valor),
     0
   )
 
   const totalFundoEmergencia = fundoDoMes.reduce(
-    (total, fundo) => total + fundo.valor,
+    (total, fundo) => total + Number(fundo.valor),
     0
   )
 
   const totalReceitaPlanejada = receitasPlanejadasDoMes.reduce(
-    (total, receita) => total + receita.valor,
+    (total, receita) => total + Number(receita.valor),
     0
   )
-  const totalDespesaPlanejada = despesasPlanejadasDoMes.reduce(
-    (total, despesa) => total + despesa.valor,
-    0
-  )
-  const totalInvestimentoPlanejado =
-    investimentosPlanejadosDoMes.reduce(
-      (total, investimento) => total + investimento.valor,
-      0
-    )
 
-  const totalFundoPlanejado =
-    fundosPlanejadosDoMes.reduce(
-      (total, fundo) => total + fundo.valor,
-      0
-    )
+  const totalDespesaPlanejada = despesasPlanejadasDoMes.reduce(
+    (total, despesa) => total + Number(despesa.valor),
+    0
+  )
+
+  const totalInvestimentoPlanejado = investimentosPlanejadosDoMes.reduce(
+    (total, investimento) => total + Number(investimento.valor),
+    0
+  )
+
+  const totalFundoPlanejado = fundosPlanejadosDoMes.reduce(
+    (total, fundo) => total + Number(fundo.valor),
+    0
+  )
 
   const saldoDoMes =
     totalReceitas -
@@ -546,7 +938,7 @@ function App() {
                             className="delete-button"
                             type="button"
                             onClick={() =>
-                              removerReceita(index)
+                              removerReceita(receita.id)
                             }
                           >
                             🗑️
@@ -682,7 +1074,7 @@ function App() {
                             className="delete-button"
                             type="button"
                             onClick={() =>
-                              removerDespesa(index)
+                              removerDespesa(despesa.id)
                             }
                           >
                             🗑️
@@ -817,7 +1209,7 @@ function App() {
                             className="delete-button"
                             type="button"
                             onClick={() =>
-                              removerInvestimento(index)
+                              removerInvestimento(investimento.id)
                             }
                           >
                             🗑️
@@ -933,26 +1325,26 @@ function App() {
                   <div className="transactions">
 
                     {fundoDoMes.map(
-                      (Emergencia, index) => (
+                      (fundo, index) => (
 
                         <div
                           className="transaction"
-                          key={index}
+                          key={fundo.id}
                         >
 
                           <span>
-                            {Emergencia.descricao}
+                            {fundo.descricao}
                           </span>
 
                           <span className="transaction-value">
-                            {Emergencia.valor.toFixed(2)} €
+                            {fundo.valor.toFixed(2)} €
                           </span>
 
                           <button
                             className="delete-button"
                             type="button"
                             onClick={() =>
-                              removerFundo(index)
+                              removerFundo(fundo.id)
                             }
                           >
                             🗑️
@@ -987,549 +1379,553 @@ function App() {
         <section className="box">
 
           <div className="section-header">
-    
+
             <span className="eyebrow">Planejamento</span>
+
             <h2>
               Objetivo
             </h2>
-        
 
             <div className="monthly-balance">
               <span className="eyebrow">SALDO PLANEJADO</span>
+
               <strong className={saldoPlanejado < 0 ? 'negative' : ''}>
                 {saldoPlanejado.toFixed(2)} €
               </strong>
             </div>
+
           </div>
+
 
           <div className="summary-grid">
 
-              <div
-                className={`summary-card income-card ${dropdownAberto === 'receitaPlanejada'
-                    ? 'is-open'
-                    : ''
-                  }`}
+
+            {/* RECEITAS PLANEJADAS */}
+
+            <div
+              className={`summary-card income-card ${dropdownAberto === 'receitaPlanejada'
+                  ? 'is-open'
+                  : ''
+                }`}
+            >
+
+              <button
+                className="finance-card-button"
+                type="button"
+                onClick={() =>
+                  alternarDropdown('receitaPlanejada')
+                }
               >
 
-                <button
-                  className="finance-card-button"
-                  type="button"
-                  onClick={() =>
-                    alternarDropdown('receitaPlanejada')
-                  }
-                >
+                <div>
 
-                  <div>
-
-                    <span className="card-label">
-                      Receitas
-                    </span>
-
-                    <h3>
-                      {totalReceitaPlanejada.toFixed(2)} €
-                    </h3>
-
-                  </div>
-
-                  <span className="card-arrow">
-                    {dropdownAberto === 'receitaPlanejada'
-                      ? '−'
-                      : '+'}
+                  <span className="card-label">
+                    Receitas
                   </span>
 
-                </button>
+                  <h3>
+                    {totalReceitaPlanejada.toFixed(2)} €
+                  </h3>
+
+                </div>
+
+                <span className="card-arrow">
+                  {dropdownAberto === 'receitaPlanejada'
+                    ? '−'
+                    : '+'}
+                </span>
+
+              </button>
 
 
-                {/* DROPDOWN RECEITAS PLANEJADAS */}
+              {dropdownAberto === 'receitaPlanejada' && (
 
-                {dropdownAberto === 'receitaPlanejada' && (
+                <div className="finance-dropdown">
 
-                  <div className="finance-dropdown">
+                  <div className="input-group">
 
-                    {/* INPUTS */}
-
-                    <div className="input-group">
-
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Descrição"
-                        value={descricaoReceitaPlanejada}
-                        onChange={(event) =>
-                          setDescricaoReceitaPlanejada(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Valor"
-                        value={valorReceitaPlanejada}
-                        onChange={(event) =>
-                          setValorReceitaPlanejada(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <button
-                        className="btn btn-success"
-                        type="button"
-                        onClick={adicionarReceitaPlanejada}
-                      >
-                        +
-                      </button>
-
-                    </div>
-
-
-                    {/* LISTA DE RECEITAS PLANEJADAS */}
-
-                    <div className="transactions">
-
-                      {receitasPlanejadasDoMes.map(
-                        (receita, index) => (
-
-                          <div
-                            className="transaction"
-                            key={index}
-                          >
-
-                            <span>
-                              {receita.descricao}
-                            </span>
-
-                            <span className="transaction-value">
-                              {receita.valor.toFixed(2)} €
-                            </span>
-
-                            <button
-                              className="delete-button"
-                              type="button"
-                              onClick={() =>
-                                setReceitasPlanejadas({
-                                  ...receitasPlanejadas,
-                                  [mes]: receitasPlanejadas[mes].filter(
-                                    (_, i) => i !== index
-                                  )
-                                })
-                              }
-                            >
-                              🗑️
-                            </button>
-
-                          </div>
-
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Descrição"
+                      value={descricaoReceitaPlanejada}
+                      onChange={(event) =>
+                        setDescricaoReceitaPlanejada(
+                          event.target.value
                         )
-                      )}
+                      }
+                    />
 
-                    </div>
-
-
-                    {/* TOTAL */}
-
-                    <div className="dropdown-total">
-
-                      Total: {totalReceitaPlanejada.toFixed(2)} €
-
-                    </div>
-
-                  </div>
-
-                )}
-
-              </div>
-
-            
-
-              <div
-                className={`summary-card expense-card ${dropdownAberto === 'despesaPlanejada'
-                    ? 'is-open'
-                    : ''
-                  }`}
-              >
-
-                <button
-                  className="finance-card-button"
-                  type="button"
-                  onClick={() =>
-                    alternarDropdown('despesaPlanejada')
-                  }
-                >
-
-                  <div>
-
-                    <span className="card-label">
-                      Despesas
-                    </span>
-
-                    <h3>
-                      {totalDespesaPlanejada.toFixed(2)} €
-                    </h3>
-
-                  </div>
-
-                  <span className="card-arrow">
-                    {dropdownAberto === 'despesaPlanejada'
-                      ? '−'
-                      : '+'}
-                  </span>
-
-                </button>
-
-
-                {/* DROPDOWN DESPESAS PLANEJADAS */}
-
-                {dropdownAberto === 'despesaPlanejada' && (
-
-                  <div className="finance-dropdown">
-
-                    <div className="input-group">
-
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Descrição"
-                        value={descricaoDespesaPlanejada}
-                        onChange={(event) =>
-                          setDescricaoDespesaPlanejada(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Valor"
-                        value={valorDespesaPlanejada}
-                        onChange={(event) =>
-                          setValorDespesaPlanejada(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <button
-                        className="btn btn-success"
-                        type="button"
-                        onClick={adicionarDespesaPlanejada}
-                      >
-                        +
-                      </button>
-
-                    </div>
-
-
-                    {/* LISTA DE DESPESAS PLANEJADAS */}
-
-                    <div className="transactions">
-
-                      {despesasPlanejadasDoMes.map(
-                        (despesa, index) => (
-
-                          <div
-                            className="transaction"
-                            key={index}
-                          >
-
-                            <span>
-                              {despesa.descricao}
-                            </span>
-
-                            <span className="transaction-value">
-                              {despesa.valor.toFixed(2)} €
-                            </span>
-
-                            <button
-                              className="delete-button"
-                              type="button"
-                              onClick={() =>
-                                removerDespesaPlanejada(index)
-                              }
-                            >
-                              🗑️
-                            </button>
-
-                          </div>
-
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Valor"
+                      value={valorReceitaPlanejada}
+                      onChange={(event) =>
+                        setValorReceitaPlanejada(
+                          event.target.value
                         )
-                      )}
+                      }
+                    />
 
-                    </div>
-
-
-                    {/* TOTAL */}
-
-                    <div className="dropdown-total">
-
-                      Total: {totalDespesaPlanejada.toFixed(2)} €
-
-                    </div>
+                    <button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={adicionarReceitaPlanejada}
+                    >
+                      +
+                    </button>
 
                   </div>
 
-                )}
 
-              </div>
+                  <div className="transactions">
 
-              <div
-                className={`summary-card investment-card ${dropdownAberto === 'investimentoPlanejado'
-                    ? 'is-open'
-                    : ''
-                  }`}
-              >
+                    {receitasPlanejadasDoMes.map(
+                      (receita) => (
 
-                <button
-                  className="finance-card-button"
-                  type="button"
-                  onClick={() =>
-                    alternarDropdown('investimentoPlanejado')
-                  }
-                >
+                        <div
+                          className="transaction"
+                          key={receita.id}
+                        >
 
-                  <div>
+                          <span>
+                            {receita.descricao}
+                          </span>
 
-                    <span className="card-label">
-                      Investimentos
-                    </span>
+                          <span className="transaction-value">
+                            {receita.valor.toFixed(2)} €
+                          </span>
 
-                    <h3>
-                      {totalInvestimentoPlanejado.toFixed(2)} €
-                    </h3>
-
-                  </div>
-
-                  <span className="card-arrow">
-                    {dropdownAberto === 'investimentoPlanejado'
-                      ? '−'
-                      : '+'}
-                  </span>
-
-                </button>
-
-
-                {dropdownAberto === 'investimentoPlanejado' && (
-
-                  <div className="finance-dropdown">
-
-                    <div className="input-group">
-
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Descrição"
-                        value={descricaoInvestimentoPlanejado}
-                        onChange={(event) =>
-                          setDescricaoInvestimentoPlanejado(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Valor"
-                        value={valorInvestimentoPlanejado}
-                        onChange={(event) =>
-                          setValorInvestimentoPlanejado(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <button
-                        className="btn btn-success"
-                        type="button"
-                        onClick={adicionarInvestimentoPlanejado}
-                      >
-                        +
-                      </button>
-
-                    </div>
-
-
-                    <div className="transactions">
-
-                      {investimentosPlanejadosDoMes.map(
-                        (investimento, index) => (
-
-                          <div
-                            className="transaction"
-                            key={index}
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              removerReceitaPlanejada(
+                                receita.id
+                              )
+                            }
                           >
+                            🗑️
+                          </button>
 
-                            <span>
-                              {investimento.descricao}
-                            </span>
+                        </div>
 
-                            <span className="transaction-value">
-                              {investimento.valor.toFixed(2)} €
-                            </span>
-
-                            <button
-                              className="delete-button"
-                              type="button"
-                              onClick={() =>
-                                removerInvestimentoPlanejado(index)
-                              }
-                            >
-                              🗑️
-                            </button>
-
-                          </div>
-
-                        )
-                      )}
-
-                    </div>
-
-
-                    <div className="dropdown-total">
-
-                      Total: {totalInvestimentoPlanejado.toFixed(2)} €
-
-                    </div>
+                      )
+                    )}
 
                   </div>
 
-                )}
 
-              </div>
+                  <div className="dropdown-total">
 
-
-              <div
-                className={`summary-card emergency-card ${dropdownAberto === 'fundoPlanejado'
-                    ? 'is-open'
-                    : ''
-                  }`}
-              >
-
-                <button
-                  className="finance-card-button"
-                  type="button"
-                  onClick={() =>
-                    alternarDropdown('fundoPlanejado')
-                  }
-                >
-
-                  <div>
-
-                    <span className="card-label">
-                      Fundo de emergência
-                    </span>
-
-                    <h3>
-                      {totalFundoPlanejado.toFixed(2)} €
-                    </h3>
+                    Total: {totalReceitaPlanejada.toFixed(2)} €
 
                   </div>
 
-                  <span className="card-arrow">
-                    {dropdownAberto === 'fundoPlanejado'
-                      ? '−'
-                      : '+'}
-                  </span>
+                </div>
 
-                </button>
+              )}
 
-
-                {dropdownAberto === 'fundoPlanejado' && (
-
-                  <div className="finance-dropdown">
-
-                    <div className="input-group">
-
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Descrição"
-                        value={descricaoFundoPlanejado}
-                        onChange={(event) =>
-                          setDescricaoFundoPlanejado(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Valor"
-                        value={valorFundoPlanejado}
-                        onChange={(event) =>
-                          setValorFundoPlanejado(
-                            event.target.value
-                          )
-                        }
-                      />
-
-                      <button
-                        className="btn btn-success"
-                        type="button"
-                        onClick={adicionarFundoPlanejado}
-                      >
-                        +
-                      </button>
-
-                    </div>
-
-
-                    <div className="transactions">
-
-                      {fundosPlanejadosDoMes.map(
-                        (fundo, index) => (
-
-                          <div
-                            className="transaction"
-                            key={index}
-                          >
-
-                            <span>
-                              {fundo.descricao}
-                            </span>
-
-                            <span className="transaction-value">
-                              {fundo.valor.toFixed(2)} €
-                            </span>
-
-                            <button
-                              className="delete-button"
-                              type="button"
-                              onClick={() =>
-                                removerFundoPlanejado(index)
-                              }
-                            >
-                              🗑️
-                            </button>
-
-                          </div>
-
-                        )
-                      )}
-
-                    </div>
-
-
-                    <div className="dropdown-total">
-
-                      Total: {totalFundoPlanejado.toFixed(2)} €
-
-                    </div>
-
-                  </div>
-
-                )}
             </div>
+
+
+            {/* DESPESAS PLANEJADAS */}
+
+            <div
+              className={`summary-card expense-card ${dropdownAberto === 'despesaPlanejada'
+                  ? 'is-open'
+                  : ''
+                }`}
+            >
+
+              <button
+                className="finance-card-button"
+                type="button"
+                onClick={() =>
+                  alternarDropdown('despesaPlanejada')
+                }
+              >
+
+                <div>
+
+                  <span className="card-label">
+                    Despesas
+                  </span>
+
+                  <h3>
+                    {totalDespesaPlanejada.toFixed(2)} €
+                  </h3>
+
+                </div>
+
+                <span className="card-arrow">
+                  {dropdownAberto === 'despesaPlanejada'
+                    ? '−'
+                    : '+'}
+                </span>
+
+              </button>
+
+
+              {dropdownAberto === 'despesaPlanejada' && (
+
+                <div className="finance-dropdown">
+
+                  <div className="input-group">
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Descrição"
+                      value={descricaoDespesaPlanejada}
+                      onChange={(event) =>
+                        setDescricaoDespesaPlanejada(
+                          event.target.value
+                        )
+                      }
+                    />
+
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Valor"
+                      value={valorDespesaPlanejada}
+                      onChange={(event) =>
+                        setValorDespesaPlanejada(
+                          event.target.value
+                        )
+                      }
+                    />
+
+                    <button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={adicionarDespesaPlanejada}
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+
+                  <div className="transactions">
+
+                    {despesasPlanejadasDoMes.map(
+                      (despesa) => (
+
+                        <div
+                          className="transaction"
+                          key={despesa.id}
+                        >
+
+                          <span>
+                            {despesa.descricao}
+                          </span>
+
+                          <span className="transaction-value">
+                            {despesa.valor.toFixed(2)} €
+                          </span>
+
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              removerDespesaPlanejada(
+                                despesa.id
+                              )
+                            }
+                          >
+                            🗑️
+                          </button>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  <div className="dropdown-total">
+
+                    Total: {totalDespesaPlanejada.toFixed(2)} €
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
+
+
+            {/* INVESTIMENTOS PLANEJADOS */}
+
+            <div
+              className={`summary-card investment-card ${dropdownAberto === 'investimentoPlanejado'
+                  ? 'is-open'
+                  : ''
+                }`}
+            >
+
+              <button
+                className="finance-card-button"
+                type="button"
+                onClick={() =>
+                  alternarDropdown('investimentoPlanejado')
+                }
+              >
+
+                <div>
+
+                  <span className="card-label">
+                    Investimentos
+                  </span>
+
+                  <h3>
+                    {totalInvestimentoPlanejado.toFixed(2)} €
+                  </h3>
+
+                </div>
+
+                <span className="card-arrow">
+                  {dropdownAberto === 'investimentoPlanejado'
+                    ? '−'
+                    : '+'}
+                </span>
+
+              </button>
+
+
+              {dropdownAberto === 'investimentoPlanejado' && (
+
+                <div className="finance-dropdown">
+
+                  <div className="input-group">
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Descrição"
+                      value={descricaoInvestimentoPlanejado}
+                      onChange={(event) =>
+                        setDescricaoInvestimentoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
+
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Valor"
+                      value={valorInvestimentoPlanejado}
+                      onChange={(event) =>
+                        setValorInvestimentoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
+
+                    <button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={adicionarInvestimentoPlanejado}
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+
+                  <div className="transactions">
+
+                    {investimentosPlanejadosDoMes.map(
+                      (investimento) => (
+
+                        <div
+                          className="transaction"
+                          key={investimento.id}
+                        >
+
+                          <span>
+                            {investimento.descricao}
+                          </span>
+
+                          <span className="transaction-value">
+                            {investimento.valor.toFixed(2)} €
+                          </span>
+
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              removerInvestimentoPlanejado(
+                                investimento.id
+                              )
+                            }
+                          >
+                            🗑️
+                          </button>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  <div className="dropdown-total">
+
+                    Total: {totalInvestimentoPlanejado.toFixed(2)} €
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
+
+
+            {/* FUNDO DE EMERGÊNCIA PLANEJADO */}
+
+            <div
+              className={`summary-card emergency-card ${dropdownAberto === 'fundoPlanejado'
+                  ? 'is-open'
+                  : ''
+                }`}
+            >
+
+              <button
+                className="finance-card-button"
+                type="button"
+                onClick={() =>
+                  alternarDropdown('fundoPlanejado')
+                }
+              >
+
+                <div>
+
+                  <span className="card-label">
+                    Fundo de emergência
+                  </span>
+
+                  <h3>
+                    {totalFundoPlanejado.toFixed(2)} €
+                  </h3>
+
+                </div>
+
+                <span className="card-arrow">
+                  {dropdownAberto === 'fundoPlanejado'
+                    ? '−'
+                    : '+'}
+                </span>
+
+              </button>
+
+
+              {dropdownAberto === 'fundoPlanejado' && (
+
+                <div className="finance-dropdown">
+
+                  <div className="input-group">
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Descrição"
+                      value={descricaoFundoPlanejado}
+                      onChange={(event) =>
+                        setDescricaoFundoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
+
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Valor"
+                      value={valorFundoPlanejado}
+                      onChange={(event) =>
+                        setValorFundoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
+
+                    <button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={adicionarFundoPlanejado}
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+
+                  <div className="transactions">
+
+                    {fundosPlanejadosDoMes.map(
+                      (fundo) => (
+
+                        <div
+                          className="transaction"
+                          key={fundo.id}
+                        >
+
+                          <span>
+                            {fundo.descricao}
+                          </span>
+
+                          <span className="transaction-value">
+                            {fundo.valor.toFixed(2)} €
+                          </span>
+
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              removerFundoPlanejado(
+                                fundo.id
+                              )
+                            }
+                          >
+                            🗑️
+                          </button>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  <div className="dropdown-total">
+
+                    Total: {totalFundoPlanejado.toFixed(2)} €
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
+
+
           </div>
-        
-        </section >
+
+        </section>
       </div >
     </>
+
   )
 }
-
 export default App
