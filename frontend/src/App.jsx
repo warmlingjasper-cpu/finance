@@ -35,7 +35,7 @@ function App() {
   const [despesasPlanejadas, setDespesasPlanejadas] = useState({});
   const [investimentosPlanejados, setInvestimentosPlanejados] = useState({});
   const [fundosPlanejados, setFundosPlanejados] = useState({});
- 
+
   const [descricaoReceitaPlanejada, setDescricaoReceitaPlanejada] = useState('');
   const [valorReceitaPlanejada, setValorReceitaPlanejada] = useState('');
 
@@ -178,9 +178,9 @@ function App() {
     })
   }
 
-    /* -------------------------
-     PLANEJAMENTO
-    ------------------------- */
+  /* -------------------------
+   PLANEJAMENTO
+  ------------------------- */
 
   function adicionarReceitaPlanejada() {
     if (valorReceitaPlanejada === '') return
@@ -428,8 +428,8 @@ function App() {
 
           <div
             className={`summary-card income-card ${dropdownAberto === 'receitas'
-                ? 'is-open'
-                : ''
+              ? 'is-open'
+              : ''
               }`}
           >
 
@@ -564,8 +564,8 @@ function App() {
 
           <div
             className={`summary-card expense-card ${dropdownAberto === 'despesas'
-                ? 'is-open'
-                : ''
+              ? 'is-open'
+              : ''
               }`}
           >
 
@@ -699,8 +699,8 @@ function App() {
 
           <div
             className={`summary-card investment-card ${dropdownAberto === 'investimentos'
-                ? 'is-open'
-                : ''
+              ? 'is-open'
+              : ''
               }`}
           >
 
@@ -834,8 +834,8 @@ function App() {
 
           <div
             className={`summary-card emergency-card ${dropdownAberto === 'emergencia'
-                ? 'is-open'
-                : ''
+              ? 'is-open'
+              : ''
               }`}
           >
 
@@ -963,50 +963,82 @@ function App() {
 
           </div>
         </div>
+      </section>
 
-          {/* PLANEJADO */}
-        <div className="box">
-          <div className="section-header">
-            <div>
-              <span className="eyebrow">Planejamento</span>
-            </div>
+      {/* PLANEJADO */}
 
-            <div className="monthly-balance">
-              <span className="eyebrow">SALDO PLANEJADO</span>
-              <strong className={saldoPlanejado < 0 ? 'negative' : ''}>
-                {saldoPlanejado.toFixed(2)} €
-              </strong>
-            </div>
+      <section className="box">
+
+        <div className="section-header">
+          <div>
+            <span className="eyebrow">Planejamento</span>
           </div>
 
-          <div className="summary-grid">
+          <div className="monthly-balance">
+            <span className="eyebrow">SALDO PLANEJADO</span>
+            <strong className={saldoPlanejado < 0 ? 'negative' : ''}>
+              {saldoPlanejado.toFixed(2)} €
+            </strong>
+          </div>
+        </div>
 
-            <div className="summary-card income-card">
+        <div className="summary-grid">
+
+            <div
+              className={`summary-card income-card ${dropdownAberto === 'receitaPlanejada'
+                  ? 'is-open'
+                  : ''
+                }`}
+            >
+
               <button
                 className="finance-card-button"
                 type="button"
-                onClick={() => alternarDropdown('receitaPlanejada')}
+                onClick={() =>
+                  alternarDropdown('receitaPlanejada')
+                }
               >
+
                 <div>
-                  <span className="card-label">Receitas</span>
-                  <h3>{totalReceitaPlanejada.toFixed(2)} €</h3>
+
+                  <span className="card-label">
+                    Receitas
+                  </span>
+
+                  <h3>
+                    {totalReceitaPlanejada.toFixed(2)} €
+                  </h3>
+
                 </div>
 
                 <span className="card-arrow">
-                  {dropdownAberto === 'receitaPlanejada' ? '−' : '+'}
+                  {dropdownAberto === 'receitaPlanejada'
+                    ? '−'
+                    : '+'}
                 </span>
+
               </button>
 
+
+              {/* DROPDOWN RECEITAS PLANEJADAS */}
+
               {dropdownAberto === 'receitaPlanejada' && (
+
                 <div className="finance-dropdown">
+
+                  {/* INPUTS */}
+
                   <div className="input-group">
+
                     <input
                       type="text"
                       className="form-control"
                       placeholder="Descrição"
                       value={descricaoReceitaPlanejada}
                       onChange={(event) =>
-                        setDescricaoReceitaPlanejada(event.target.value)
+                        setDescricaoReceitaPlanejada(
+                          event.target.value
+                        )
                       }
                     />
 
@@ -1016,7 +1048,9 @@ function App() {
                       placeholder="Valor"
                       value={valorReceitaPlanejada}
                       onChange={(event) =>
-                        setValorReceitaPlanejada(event.target.value)
+                        setValorReceitaPlanejada(
+                          event.target.value
+                        )
                       }
                     />
 
@@ -1024,408 +1058,456 @@ function App() {
                       className="btn btn-success"
                       type="button"
                       onClick={adicionarReceitaPlanejada}
-                      >
-                        +
+                    >
+                      +
                     </button>
 
-                      </div>
-                    </div>
-  
-                  )}
+                  </div>
 
 
-          </div>
+                  {/* LISTA DE RECEITAS PLANEJADAS */}
 
-          <div
-            className={`summary-card expense-card ${
-              dropdownAberto === 'despesaPlanejada'
-                ? 'is-open'
-                : ''
-            }`}
-          >
+                  <div className="transactions">
 
-            <button
-              className="finance-card-button"
-              type="button"
-              onClick={() =>
-                alternarDropdown('despesaPlanejada')
-              }
+                    {receitasPlanejadasDoMes.map(
+                      (receita, index) => (
+
+                        <div
+                          className="transaction"
+                          key={index}
+                        >
+
+                          <span>
+                            {receita.descricao}
+                          </span>
+
+                          <span className="transaction-value">
+                            {receita.valor.toFixed(2)} €
+                          </span>
+
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              setReceitasPlanejadas({
+                                ...receitasPlanejadas,
+                                [mes]: receitasPlanejadas[mes].filter(
+                                  (_, i) => i !== index
+                                )
+                              })
+                            }
+                          >
+                            🗑️
+                          </button>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  {/* TOTAL */}
+
+                  <div className="dropdown-total">
+
+                    Total: {totalReceitaPlanejada.toFixed(2)} €
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
+
+          
+
+            <div
+              className={`summary-card expense-card ${dropdownAberto === 'despesaPlanejada'
+                  ? 'is-open'
+                  : ''
+                }`}
             >
 
-              <div>
+              <button
+                className="finance-card-button"
+                type="button"
+                onClick={() =>
+                  alternarDropdown('despesaPlanejada')
+                }
+              >
 
-                <span className="card-label">
-                  Despesas
+                <div>
+
+                  <span className="card-label">
+                    Despesas
+                  </span>
+
+                  <h3>
+                    {totalDespesaPlanejada.toFixed(2)} €
+                  </h3>
+
+                </div>
+
+                <span className="card-arrow">
+                  {dropdownAberto === 'despesaPlanejada'
+                    ? '−'
+                    : '+'}
                 </span>
 
-                <h3>
-                  {totalDespesaPlanejada.toFixed(2)} €
-                </h3>
-
-              </div>
-
-              <span className="card-arrow">
-                {dropdownAberto === 'despesaPlanejada'
-                  ? '−'
-                  : '+'}
-              </span>
-
-            </button>
+              </button>
 
 
-            {/* DROPDOWN DESPESAS PLANEJADAS */}
+              {/* DROPDOWN DESPESAS PLANEJADAS */}
 
-            {dropdownAberto === 'despesaPlanejada' && (
+              {dropdownAberto === 'despesaPlanejada' && (
 
-              <div className="finance-dropdown">
+                <div className="finance-dropdown">
 
-                <div className="input-group">
+                  <div className="input-group">
 
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Descrição"
-                    value={descricaoDespesaPlanejada}
-                    onChange={(event) =>
-                      setDescricaoDespesaPlanejada(
-                        event.target.value
-                      )
-                    }
-                  />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Descrição"
+                      value={descricaoDespesaPlanejada}
+                      onChange={(event) =>
+                        setDescricaoDespesaPlanejada(
+                          event.target.value
+                        )
+                      }
+                    />
 
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Valor"
-                    value={valorDespesaPlanejada}
-                    onChange={(event) =>
-                      setValorDespesaPlanejada(
-                        event.target.value
-                      )
-                    }
-                  />
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Valor"
+                      value={valorDespesaPlanejada}
+                      onChange={(event) =>
+                        setValorDespesaPlanejada(
+                          event.target.value
+                        )
+                      }
+                    />
 
-                  <button
-                    className="btn btn-success"
-                    type="button"
-                    onClick={adicionarDespesaPlanejada}
-                  >
-                    +
-                  </button>
+                    <button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={adicionarDespesaPlanejada}
+                    >
+                      +
+                    </button>
 
-                </div>
+                  </div>
 
 
-                {/* LISTA DE DESPESAS PLANEJADAS */}
+                  {/* LISTA DE DESPESAS PLANEJADAS */}
 
-                <div className="transactions">
+                  <div className="transactions">
 
-                  {despesasPlanejadasDoMes.map(
-                    (despesa, index) => (
+                    {despesasPlanejadasDoMes.map(
+                      (despesa, index) => (
 
-                      <div
-                        className="transaction"
-                        key={index}
-                      >
-
-                        <span>
-                          {despesa.descricao}
-                        </span>
-
-                        <span className="transaction-value">
-                          {despesa.valor.toFixed(2)} €
-                        </span>
-
-                        <button
-                          className="delete-button"
-                          type="button"
-                          onClick={() =>
-                            removerDespesaPlanejada(index)
-                          }
+                        <div
+                          className="transaction"
+                          key={index}
                         >
-                          🗑️
-                        </button>
 
-                      </div>
+                          <span>
+                            {despesa.descricao}
+                          </span>
 
-                    )
-                  )}
+                          <span className="transaction-value">
+                            {despesa.valor.toFixed(2)} €
+                          </span>
+
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              removerDespesaPlanejada(index)
+                            }
+                          >
+                            🗑️
+                          </button>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  {/* TOTAL */}
+
+                  <div className="dropdown-total">
+
+                    Total: {totalDespesaPlanejada.toFixed(2)} €
+
+                  </div>
 
                 </div>
 
+              )}
 
-                {/* TOTAL */}
+            </div>
 
-                <div className="dropdown-total">
-
-                  Total: {totalDespesaPlanejada.toFixed(2)} €
-
-                </div>
-
-              </div>
-
-            )}
-
-          </div>
-
-          <div
-            className={`summary-card investment-card ${
-              dropdownAberto === 'investimentoPlanejado'
-                ? 'is-open'
-                : ''
-            }`}
-          >
-
-            <button
-              className="finance-card-button"
-              type="button"
-              onClick={() =>
-                alternarDropdown('investimentoPlanejado')
-              }
+            <div
+              className={`summary-card investment-card ${dropdownAberto === 'investimentoPlanejado'
+                  ? 'is-open'
+                  : ''
+                }`}
             >
 
-              <div>
+              <button
+                className="finance-card-button"
+                type="button"
+                onClick={() =>
+                  alternarDropdown('investimentoPlanejado')
+                }
+              >
 
-                <span className="card-label">
-                  Investimentos
+                <div>
+
+                  <span className="card-label">
+                    Investimentos
+                  </span>
+
+                  <h3>
+                    {totalInvestimentoPlanejado.toFixed(2)} €
+                  </h3>
+
+                </div>
+
+                <span className="card-arrow">
+                  {dropdownAberto === 'investimentoPlanejado'
+                    ? '−'
+                    : '+'}
                 </span>
 
-                <h3>
-                  {totalInvestimentoPlanejado.toFixed(2)} €
-                </h3>
-
-              </div>
-
-              <span className="card-arrow">
-                {dropdownAberto === 'investimentoPlanejado'
-                  ? '−'
-                  : '+'}
-              </span>
-
-            </button>
+              </button>
 
 
-            {dropdownAberto === 'investimentoPlanejado' && (
+              {dropdownAberto === 'investimentoPlanejado' && (
 
-              <div className="finance-dropdown">
+                <div className="finance-dropdown">
 
-                <div className="input-group">
+                  <div className="input-group">
 
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Descrição"
-                    value={descricaoInvestimentoPlanejado}
-                    onChange={(event) =>
-                      setDescricaoInvestimentoPlanejado(
-                        event.target.value
-                      )
-                    }
-                  />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Descrição"
+                      value={descricaoInvestimentoPlanejado}
+                      onChange={(event) =>
+                        setDescricaoInvestimentoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
 
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Valor"
-                    value={valorInvestimentoPlanejado}
-                    onChange={(event) =>
-                      setValorInvestimentoPlanejado(
-                        event.target.value
-                      )
-                    }
-                  />
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Valor"
+                      value={valorInvestimentoPlanejado}
+                      onChange={(event) =>
+                        setValorInvestimentoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
 
-                  <button
-                    className="btn btn-success"
-                    type="button"
-                    onClick={adicionarInvestimentoPlanejado}
-                  >
-                    +
-                  </button>
+                    <button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={adicionarInvestimentoPlanejado}
+                    >
+                      +
+                    </button>
 
-                </div>
+                  </div>
 
 
-                <div className="transactions">
+                  <div className="transactions">
 
-                  {investimentosPlanejadosDoMes.map(
-                    (investimento, index) => (
+                    {investimentosPlanejadosDoMes.map(
+                      (investimento, index) => (
 
-                      <div
-                        className="transaction"
-                        key={index}
-                      >
-
-                        <span>
-                          {investimento.descricao}
-                        </span>
-
-                        <span className="transaction-value">
-                          {investimento.valor.toFixed(2)} €
-                        </span>
-
-                        <button
-                          className="delete-button"
-                          type="button"
-                          onClick={() =>
-                            removerInvestimentoPlanejado(index)
-                          }
+                        <div
+                          className="transaction"
+                          key={index}
                         >
-                          🗑️
-                        </button>
 
-                      </div>
+                          <span>
+                            {investimento.descricao}
+                          </span>
 
-                    )
-                  )}
+                          <span className="transaction-value">
+                            {investimento.valor.toFixed(2)} €
+                          </span>
+
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              removerInvestimentoPlanejado(index)
+                            }
+                          >
+                            🗑️
+                          </button>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  <div className="dropdown-total">
+
+                    Total: {totalInvestimentoPlanejado.toFixed(2)} €
+
+                  </div>
 
                 </div>
 
+              )}
 
-                <div className="dropdown-total">
-
-                  Total: {totalInvestimentoPlanejado.toFixed(2)} €
-
-                </div>
-
-              </div>
-
-            )}
-
-          </div>
+            </div>
 
 
-          <div
-            className={`summary-card emergency-card ${
-              dropdownAberto === 'fundoPlanejado'
-                ? 'is-open'
-                : ''
-            }`}
-          >
-
-            <button
-              className="finance-card-button"
-              type="button"
-              onClick={() =>
-                alternarDropdown('fundoPlanejado')
-              }
+            <div
+              className={`summary-card emergency-card ${dropdownAberto === 'fundoPlanejado'
+                  ? 'is-open'
+                  : ''
+                }`}
             >
 
-              <div>
+              <button
+                className="finance-card-button"
+                type="button"
+                onClick={() =>
+                  alternarDropdown('fundoPlanejado')
+                }
+              >
 
-                <span className="card-label">
-                  Fundo de emergência
+                <div>
+
+                  <span className="card-label">
+                    Fundo de emergência
+                  </span>
+
+                  <h3>
+                    {totalFundoPlanejado.toFixed(2)} €
+                  </h3>
+
+                </div>
+
+                <span className="card-arrow">
+                  {dropdownAberto === 'fundoPlanejado'
+                    ? '−'
+                    : '+'}
                 </span>
 
-                <h3>
-                  {totalFundoPlanejado.toFixed(2)} €
-                </h3>
-
-              </div>
-
-              <span className="card-arrow">
-                {dropdownAberto === 'fundoPlanejado'
-                  ? '−'
-                  : '+'}
-              </span>
-
-            </button>
+              </button>
 
 
-            {dropdownAberto === 'fundoPlanejado' && (
+              {dropdownAberto === 'fundoPlanejado' && (
 
-              <div className="finance-dropdown">
+                <div className="finance-dropdown">
 
-                <div className="input-group">
+                  <div className="input-group">
 
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Descrição"
-                    value={descricaoFundoPlanejado}
-                    onChange={(event) =>
-                      setDescricaoFundoPlanejado(
-                        event.target.value
-                      )
-                    }
-                  />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Descrição"
+                      value={descricaoFundoPlanejado}
+                      onChange={(event) =>
+                        setDescricaoFundoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
 
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Valor"
-                    value={valorFundoPlanejado}
-                    onChange={(event) =>
-                      setValorFundoPlanejado(
-                        event.target.value
-                      )
-                    }
-                  />
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Valor"
+                      value={valorFundoPlanejado}
+                      onChange={(event) =>
+                        setValorFundoPlanejado(
+                          event.target.value
+                        )
+                      }
+                    />
 
-                  <button
-                    className="btn btn-success"
-                    type="button"
-                    onClick={adicionarFundoPlanejado}
-                  >
-                    +
-                  </button>
+                    <button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={adicionarFundoPlanejado}
+                    >
+                      +
+                    </button>
 
-                </div>
+                  </div>
 
 
-                <div className="transactions">
+                  <div className="transactions">
 
-                  {fundosPlanejadosDoMes.map(
-                    (fundo, index) => (
+                    {fundosPlanejadosDoMes.map(
+                      (fundo, index) => (
 
-                      <div
-                        className="transaction"
-                        key={index}
-                      >
-
-                        <span>
-                          {fundo.descricao}
-                        </span>
-
-                        <span className="transaction-value">
-                          {fundo.valor.toFixed(2)} €
-                        </span>
-
-                        <button
-                          className="delete-button"
-                          type="button"
-                          onClick={() =>
-                            removerFundoPlanejado(index)
-                          }
+                        <div
+                          className="transaction"
+                          key={index}
                         >
-                          🗑️
-                        </button>
 
-                      </div>
+                          <span>
+                            {fundo.descricao}
+                          </span>
 
-                    )
-                  )}
+                          <span className="transaction-value">
+                            {fundo.valor.toFixed(2)} €
+                          </span>
+
+                          <button
+                            className="delete-button"
+                            type="button"
+                            onClick={() =>
+                              removerFundoPlanejado(index)
+                            }
+                          >
+                            🗑️
+                          </button>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  <div className="dropdown-total">
+
+                    Total: {totalFundoPlanejado.toFixed(2)} €
+
+                  </div>
 
                 </div>
 
-
-                <div className="dropdown-total">
-
-                  Total: {totalFundoPlanejado.toFixed(2)} €
-
-                </div>
-
-              </div>
-
-            )}
-
+              )}
           </div>
-
         </div>
-      </div>
-
-      </section>
-    </div>
+      
+      </section >
+    </div >
   )
 }
 
