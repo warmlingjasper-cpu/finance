@@ -1,0 +1,27 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  --background: #151617;
+  --surface: #1d1f20;
+  --surface-light: #252728;
+
+  --text: #e8e8e6;
+  --text-muted: #9b9d9c;
+
+  --border: #303233;
+
+  --accent: #b8a47a;
+
+}
+
+body {
+  
+  font-family: "Inter", sans-serif;
+
+  background: #151617;
+}
