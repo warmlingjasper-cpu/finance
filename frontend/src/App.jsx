@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-
+import API_URL from './api';
 import meses from './data/data'
 
 
@@ -57,7 +57,7 @@ function App() {
   useEffect(() => {
 
     // RECEITAS
-    fetch('http://127.0.0.1:8000/api/receitas/')
+    fetch(`${API_URL}/api/receitas/`)
       .then(response => response.json())
       .then(data => {
 
@@ -82,7 +82,7 @@ function App() {
 
 
     // DESPESAS
-    fetch('http://127.0.0.1:8000/api/despesas/')
+    fetch(`${API_URL}/api/despesas/`)
       .then(response => response.json())
       .then(data => {
 
@@ -107,7 +107,7 @@ function App() {
 
 
     // INVESTIMENTOS
-    fetch('http://127.0.0.1:8000/api/investimentos/')
+    fetch(`${API_URL}/api/investimentos/`)
       .then(response => response.json())
       .then(data => {
 
@@ -132,7 +132,7 @@ function App() {
 
 
     // FUNDO DE EMERGÊNCIA
-    fetch('http://127.0.0.1:8000/api/fundo/')
+    fetch(`${API_URL}/api/fundo/`)
       .then(response => response.json())
       .then(data => {
 
@@ -156,7 +156,7 @@ function App() {
       })
 
     // RECEITAS PLANEJADAS
-    fetch('http://127.0.0.1:8000/api/receitas-planejadas/')
+    fetch(`${API_URL}/api/receitas-planejadas/`)
       .then(response => response.json())
       .then(data => {
 
@@ -181,7 +181,7 @@ function App() {
 
 
     // DESPESAS PLANEJADAS
-    fetch('http://127.0.0.1:8000/api/despesas-planejadas/')
+    fetch(`${API_URL}/api/despesas-planejadas/`)
       .then(response => response.json())
       .then(data => {
 
@@ -206,7 +206,7 @@ function App() {
 
 
     // INVESTIMENTOS PLANEJADOS
-    fetch('http://127.0.0.1:8000/api/investimentos-planejados/')
+    fetch(`${API_URL}/api/investimentos-planejados/`)
       .then(response => response.json())
       .then(data => {
 
@@ -231,7 +231,7 @@ function App() {
 
 
     // FUNDO PLANEJADO
-    fetch('http://127.0.0.1:8000/api/fundo-planejado/')
+    fetch(`${API_URL}/api/fundo-planejado/`)
       .then(response => response.json())
       .then(data => {
 
@@ -265,7 +265,7 @@ function App() {
   function adicionarReceita() {
     if (valorReceita === '') return
 
-    fetch('http://127.0.0.1:8000/api/receitas/', {
+    fetch(`${API_URL}/api/receitas/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -299,7 +299,7 @@ function App() {
   }
 
   function removerReceita(id) {
-    fetch(`http://127.0.0.1:8000/api/receitas/${id}/`, {
+    fetch(`${API_URL}/api/receitas/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -319,7 +319,7 @@ function App() {
   function adicionarDespesa() {
     if (valorDespesa === '') return
 
-    fetch('http://127.0.0.1:8000/api/despesas/', {
+    fetch(`${API_URL}/api/despesas/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -353,7 +353,7 @@ function App() {
   }
 
   function removerDespesa(id) {
-    fetch(`http://127.0.0.1:8000/api/despesas/${id}/`, {
+    fetch(`${API_URL}/api/despesas/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -375,7 +375,7 @@ function App() {
   function adicionarInvestimento() {
     if (valorInvestimento === '') return
 
-    fetch('http://127.0.0.1:8000/api/investimentos/', {
+    fetch(`${API_URL}/api/investimentos/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -410,7 +410,7 @@ function App() {
 
 
   function removerInvestimento(id) {
-    fetch(`http://127.0.0.1:8000/api/investimentos/${id}/`, {
+    fetch(`${API_URL}/api/investimentos/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -431,7 +431,7 @@ function App() {
   function adicionarFundo() {
     if (valorFundo === '') return
 
-    fetch('http://127.0.0.1:8000/api/fundo/', {
+    fetch(`${API_URL}/api/fundo/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -466,7 +466,7 @@ function App() {
 
 
   function removerFundo(id) {
-    fetch(`http://127.0.0.1:8000/api/fundo/${id}/`, {
+    fetch(`${API_URL}/api/fundo/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -486,7 +486,7 @@ function App() {
   function adicionarReceitaPlanejada() {
     if (valorReceitaPlanejada === '') return
 
-    fetch('http://127.0.0.1:8000/api/receitas-planejadas/', {
+    fetch(`${API_URL}/api/receitas-planejadas/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -520,7 +520,7 @@ function App() {
   }
 
   function removerReceitaPlanejada(id) {
-    fetch(`http://127.0.0.1:8000/api/receitas-planejadas/${id}/`, {
+    fetch(`${API_URL}/api/receitas-planejadas/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -536,7 +536,7 @@ function App() {
   function adicionarDespesaPlanejada() {
     if (valorDespesaPlanejada === '') return
 
-    fetch('http://127.0.0.1:8000/api/despesas-planejadas/', {
+    fetch(`${API_URL}/api/despesas-planejadas/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -570,7 +570,7 @@ function App() {
   }
 
   function removerDespesaPlanejada(id) {
-    fetch(`http://127.0.0.1:8000/api/despesas-planejadas/${id}/`, {
+    fetch(`${API_URL}/api/despesas-planejadas/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -586,7 +586,7 @@ function App() {
   function adicionarInvestimentoPlanejado() {
     if (valorInvestimentoPlanejado === '') return
 
-    fetch('http://127.0.0.1:8000/api/investimentos-planejados/', {
+    fetch(`${API_URL}/api/investimentos-planejados/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -620,7 +620,7 @@ function App() {
   }
 
   function removerInvestimentoPlanejado(id) {
-    fetch(`http://127.0.0.1:8000/api/investimentos-planejados/${id}/`, {
+    fetch(`${API_URL}/api/investimentos-planejados/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -636,7 +636,7 @@ function App() {
   function adicionarFundoPlanejado() {
     if (valorFundoPlanejado === '') return
 
-    fetch('http://127.0.0.1:8000/api/fundo-planejado/', {
+    fetch(`${API_URL}/api/fundo-planejado/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -670,7 +670,7 @@ function App() {
   }
 
   function removerFundoPlanejado(id) {
-    fetch(`http://127.0.0.1:8000/api/fundo-planejado/${id}/`, {
+    fetch(`${API_URL}/api/fundo-planejado/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
