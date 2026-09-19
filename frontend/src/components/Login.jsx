@@ -12,28 +12,19 @@ function Login({ onLoginSuccess }) {
     const [loading, setLoading] = useState(false);
 
     async function getCSRFToken() {
-        await fetch(`${API_URL}/api/csrf/`, {
+        const response = await fetch(`${API_URL}/api/csrf/`, {
             credentials: "include",
         });
+
+        const data = await response.json();
+
+        return data.csrfToken;
     }
 
     useEffect(() => {
         getCSRFToken();
     }, []);
 
-    function getCookie(name) {
-        const cookies = document.cookie.split(";");
-
-        for (const cookie of cookies) {
-            const [key, value] = cookie.trim().split("=");
-
-            if (key === name) {
-                return decodeURIComponent(value);
-            }
-        }
-
-        return null;
-    }
 
     async function handleLogin(event) {
         console.log("HANDLE LOGIN FUNCIONOU");
@@ -43,7 +34,7 @@ function Login({ onLoginSuccess }) {
         setError("");
         setLoading(true);
 
-        const csrfToken = getCookie("csrftoken");
+        const csrfToken = await getCSRFToken();
 
         console.log("CSRF Token:", csrfToken);
         console.log("Username:", username);
