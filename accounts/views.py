@@ -5,6 +5,22 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.middleware.csrf import get_token
 
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+
+
+def reset_admin_password(request):
+    user = User.objects.get(username="Admin")
+    user.set_password("COLOQUE_UMA_SENHA_NOVA_AQUI")
+    user.is_staff = True
+    user.is_superuser = True
+    user.save()
+
+    return JsonResponse({
+        "message": "Senha do Admin atualizada."
+    })
+
+
 @ensure_csrf_cookie
 def csrf_view(request):
     token = get_token(request)
