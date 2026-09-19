@@ -12,6 +12,9 @@ from .views import (
     logout_view,
 )
 
+
+from transactions.views import reset_admin_password
+
 router = DefaultRouter()
 
 router.register('receitas', ReceitaViewSet)
@@ -31,4 +34,8 @@ from django.urls import path
 
 urlpatterns = router.urls + [
     path('logout/', logout_view, name='logout'),
+    path(
+    "api/reset-admin-password/",
+    reset_admin_password
+),
 ]
