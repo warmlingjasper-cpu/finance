@@ -9,6 +9,7 @@ from .views import (
     DespesaPlanejadaViewSet,
     InvestimentoPlanejadoViewSet,
     FundoPlanejadoViewSet,
+    logout_view,
 )
 
 router = DefaultRouter()
@@ -26,4 +27,8 @@ router.register('investimentos-planejados', InvestimentoPlanejadoViewSet)
 
 router.register('fundo-planejado', FundoPlanejadoViewSet)
 
-urlpatterns = router.urls
+from django.urls import path
+
+urlpatterns = router.urls + [
+    path('logout/', logout_view, name='logout'),
+]

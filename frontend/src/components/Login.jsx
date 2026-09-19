@@ -1,0 +1,153 @@
+import { useEffect, useState } from "react";
+import API_URL from "../api";
+import "../App.css";
+
+function Login({ onLoginSuccess }) {
+
+    console.log("LOGIN COMPONENT CARREGADO");
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    async function getCSRFToken() {
+        await fetch(`${API_URL}/api/csrf/`, {
+            credentials: "include",
+        });
+    }
+
+    useEffect(() => {
+        getCSRFToken();
+    }, []);
+
+    function getCookie(name) {
+        const cookies = document.cookie.split(";");
+
+        for (const cookie of cookies) {
+            const [key, value] = cookie.trim().split("=");
+
+            if (key === name) {
+                return decodeURIComponent(value);
+            }
+        }
+
+        return null;
+    }
+
+    async function handleLogin(event) {
+        console.log("HANDLE LOGIN FUNCIONOU");
+
+        event.preventDefault();
+
+        setError("");
+        setLoading(true);
+
+        const csrfToken = getCookie("csrftoken");
+
+        console.log("CSRF Token:", csrfToken);
+        console.log("Username:", username);
+        console.log("VOU ENVIAR LOGIN");
+
+        const response = await fetch(`${API_URL}/api/login/`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken,
+            },
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        });
+
+        console.log("RESPOSTA RECEBIDA:", response.status);
+        console.log("Status:", response.status);
+        console.log("OK:", response.ok);
+
+        const data = await response.json();
+
+        console.log("Data:", data);
+
+        if (!response.ok) {
+            setError(data.error || "Erro ao fazer login.");
+            setLoading(false);
+            return;
+        }
+
+        onLoginSuccess();
+        setLoading(false);
+    }
+
+    return (
+    
+        <div className="login-page">
+
+            <div className="login-card">
+
+                <div className="login-header">
+                    <span className="login-eyebrow">
+                        FINANCE
+                    </span>
+
+                    <h1>
+                        Entrar
+                    </h1>
+
+                    <p>
+                        Acesse sua conta para continuar
+                    </p>
+                </div>
+
+                {error && (
+                    <div className="login-error">
+                        {error}
+                    </div>
+                )}
+
+                <form onSubmit={handleLogin}>
+
+                    <div className="login-field">
+                        <label>
+                            Usuário
+                        </label>
+
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={(event) => setUsername(event.target.value)}
+                            autoComplete="username"
+                        />
+                    </div>
+
+                    <div className="login-field">
+                        <label>
+                            Senha
+                        </label>
+
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                            autoComplete="current-password"
+                        />
+                    </div>
+
+                    <button
+                        className="login-button"
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading ? "Entrando..." : "Entrar"}
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    );
+}
+
+export default Login;

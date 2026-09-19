@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "finance-backend-4a93.onrender.com",
+    "127.0.0.1", 
+    "localhost",
 ]
 
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'transactions',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,4 +134,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://finance-1vv4.onrender.com",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]

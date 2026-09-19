@@ -611,5 +611,145 @@ body {
     font-size: 20px;
   }
 
+  .user-bar {
+    padding: 0;
+    margin-bottom: 12px;
+  }
+
 }
 
+/* --- login, logout --- */
+
+.user-bar {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 0 30px;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.user-bar span {
+  color: #9a9f9c;
+  font-size: 14px;
+}
+
+.user-bar button {
+  padding: 7px 12px;
+  border: 1px solid #343836;
+  border-radius: 8px;
+  background: transparent;
+  color: #9a9f9c;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.user-bar button:hover {
+  color: #ffffff;
+  border-color: #555b57;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111312;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #191c1b;
+  border-radius: 18px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.login-header {
+  margin-bottom: 32px;
+}
+
+.login-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #9fe870;
+}
+
+.login-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.login-header p {
+  margin: 8px 0 0;
+  color: #9a9f9c;
+  font-size: 14px;
+}
+
+.login-field {
+  margin-bottom: 20px;
+}
+
+.login-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #343836;
+  border-radius: 10px;
+  background: #111312;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+}
+
+.login-field input:focus {
+  border-color: #9fe870;
+}
+
+.login-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #9fe870;
+  color: #111312;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  opacity: 0.9;
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-error {
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
+  font-size: 14px;
+}
