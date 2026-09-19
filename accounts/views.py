@@ -3,12 +3,14 @@ import json
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
-
+from django.middleware.csrf import get_token
 
 @ensure_csrf_cookie
 def csrf_view(request):
+    token = get_token(request)
+
     return JsonResponse({
-        "message": "CSRF cookie set."
+        "csrfToken": token
     })
 
 
