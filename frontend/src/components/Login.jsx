@@ -26,8 +26,7 @@ function Login({ onLoginSuccess }) {
     }, []);
 
 
-    async function handleLogin(event) {
-        console.log("HANDLE LOGIN FUNCIONOU");
+   async function handleLogin(event) {
 
         event.preventDefault();
 
@@ -37,8 +36,6 @@ function Login({ onLoginSuccess }) {
         const csrfToken = await getCSRFToken();
 
         console.log("CSRF Token:", csrfToken);
-        console.log("Username:", username);
-        console.log("VOU ENVIAR LOGIN");
 
         const response = await fetch(`${API_URL}/api/login/`, {
             method: "POST",
@@ -53,13 +50,7 @@ function Login({ onLoginSuccess }) {
             }),
         });
 
-        console.log("RESPOSTA RECEBIDA:", response.status);
-        console.log("Status:", response.status);
-        console.log("OK:", response.ok);
-
         const data = await response.json();
-
-        console.log("Data:", data);
 
         if (!response.ok) {
             setError(data.error || "Erro ao fazer login.");
