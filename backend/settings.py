@@ -30,9 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "finance-backend-4a93.onrender.com",
-    "127.0.0.1", 
+    "127.0.0.1",
     "localhost",
-    "finance-backend-4a93.onrender.com",
 ]
 
 
@@ -140,7 +139,7 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
+    "https://finance-1vv4.onrender.com",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "finance-backend-4a93.onrender.com",
 ]
