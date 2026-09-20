@@ -12,7 +12,7 @@ function Login({ onLoginSuccess }) {
     const [loading, setLoading] = useState(false);
 
     async function getCSRFToken() {
-        const response = await fetch(`${API_URL}/api/csrf/`, {
+        const response = await fetch(`${API_URL}/csrf/`, {
             credentials: "include",
         });
 
@@ -42,7 +42,7 @@ function Login({ onLoginSuccess }) {
         alert("CSRF RECEBIDO: " + csrfToken);
         console.log("2 - CSRF recebido:", csrfToken);
 
-        const response = await fetch(`${API_URL}/api/login/`, {
+        const response = await fetch(`${API_URL}/login/`, {
             method: "POST",
             credentials: "include",
             headers: {
