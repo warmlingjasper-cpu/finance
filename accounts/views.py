@@ -44,6 +44,7 @@ def login_view(request):
     return JsonResponse({
         "message": "Login realizado com sucesso.",
         "username": user.username,
+        "session_key": request.session.session_key,
     })
 
 
