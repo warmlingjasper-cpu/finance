@@ -119,7 +119,11 @@ function App() {
 
   }, [])
 
-
+  useEffect(() => {
+      fetch(`${API_URL}/api/accounts/csrf/`, {
+        credentials: "include",
+      })
+    }, [])
 
   useEffect(() => {
 
@@ -127,13 +131,7 @@ function App() {
       return
     }
 
-
-    useEffect(() => {
-      fetch(`${API_URL}/api/accounts/csrf/`, {
-        credentials: "include",
-      })
-    }, [])
-
+    
     // RECEITAS
     fetch(`${API_URL}/api/receitas/`, {
       credentials: 'include',
