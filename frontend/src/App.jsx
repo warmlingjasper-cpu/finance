@@ -429,6 +429,10 @@ function adicionarDespesa() {
     .then(data => {
       console.log(data)
 
+      console.log("RESPOSTA DESPESA:", data)
+      console.log("VALOR DESPESA:", data.valor)
+      console.log("NUMBER DESPESA:", Number(data.valor))
+
       const novaDespesa = {
         ...data,
         valor: Number(data.valor)
