@@ -39,8 +39,9 @@ function Login({ onLoginSuccess }) {
 
         console.log("1 - começando login");
         const csrfToken = await getCSRFToken();
-
+        alert("CSRF RECEBIDO: " + csrfToken);
         console.log("2 - CSRF recebido:", csrfToken);
+        
         const response = await fetch(`${API_URL}/api/login/`, {
             method: "POST",
             credentials: "include",
