@@ -33,10 +33,10 @@ function Login({ onLoginSuccess }) {
         setError("");
         setLoading(true);
 
+        console.log("1 - começando login");
         const csrfToken = await getCSRFToken();
 
-        console.log("CSRF Token:", csrfToken);
-
+        console.log("2 - CSRF recebido:", csrfToken);
         const response = await fetch(`${API_URL}/api/login/`, {
             method: "POST",
             credentials: "include",
@@ -49,7 +49,7 @@ function Login({ onLoginSuccess }) {
                 password,
             }),
         });
-
+        console.log("3 - resposta do login:", response.status);
         const data = await response.json();
 
         if (!response.ok) {
