@@ -18,6 +18,8 @@ function Login({ onLoginSuccess }) {
 
         const data = await response.json();
 
+        document.cookie = `csrftoken=${data.csrfToken}; Path=/; Secure; SameSite=Lax`;
+
         console.log("RESPOSTA DO LOGIN:", data);
 
         return data.csrfToken;
