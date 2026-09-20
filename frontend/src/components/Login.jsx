@@ -17,6 +17,8 @@ function Login({ onLoginSuccess }) {
         });
 
         const data = await response.json();
+        
+        console.log("RESPOSTA DO LOGIN:", data);
 
         return data.csrfToken;
     }
