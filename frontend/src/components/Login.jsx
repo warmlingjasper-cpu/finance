@@ -56,11 +56,11 @@ function Login({ onLoginSuccess }) {
         });
 
         alert("LOGIN RESPONDEU: " + response.status);
-        
-        console.log("3 - resposta do login:", response.status);
-        const data = await response.json();
 
-        alert(JSON.stringify(data));
+        console.log("3 - resposta do login:", response.status);
+        const texto = await response.text();
+
+        alert("RESPOSTA DO SERVIDOR: " + texto);
 
         if (!response.ok) {
             setError(data.error || "Erro ao fazer login.");
