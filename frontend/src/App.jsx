@@ -19,9 +19,10 @@ function getCookie(name) {
   return null
 }
 
+let csrfToken = null
+
 async function apiFetch(url, options = {}) {
 
-  const csrfToken = getCookie("csrftoken")
 
   const headers = {
     "Content-Type": "application/json",
@@ -120,10 +121,15 @@ function App() {
   }, [])
 
   useEffect(() => {
-      fetch(`${API_URL}/api/accounts/csrf/`, {
-        credentials: "include",
+    fetch(`${API_URL}/api/accounts/csrf/`, {
+      credentials: "include",
+    })
+      .then(response => response.json())
+      .then(data => {
+        csrfToken = data.csrfToken
+        console.log("CSRF carregado")
       })
-    }, [])
+  }, [])
 
   useEffect(() => {
 
