@@ -32,6 +32,8 @@ function Login({ onLoginSuccess }) {
 
         event.preventDefault();
 
+        alert("O LOGIN FOI INICIADO");
+
         setError("");
         setLoading(true);
 
@@ -51,7 +53,7 @@ function Login({ onLoginSuccess }) {
                 password,
             }),
         });
-        
+
         console.log("3 - resposta do login:", response.status);
         const data = await response.json();
 
