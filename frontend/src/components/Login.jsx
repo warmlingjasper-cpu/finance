@@ -4,8 +4,6 @@ import "../App.css";
 
 function Login({ onLoginSuccess }) {
 
-    console.log("LOGIN COMPONENT CARREGADO");
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -18,9 +16,9 @@ function Login({ onLoginSuccess }) {
 
         const data = await response.json();
 
+        // Safari/iPhone pode não guardar automaticamente
+        // o cookie CSRF enviado pelo Django.
         document.cookie = `csrftoken=${data.csrfToken}; Path=/; Secure; SameSite=Lax`;
-
-        console.log("RESPOSTA DO LOGIN:", data);
 
         return data.csrfToken;
     }
@@ -30,48 +28,43 @@ function Login({ onLoginSuccess }) {
     }, []);
 
 
-   async function handleLogin(event) {
+    async function handleLogin(event) {
 
         event.preventDefault();
-
-        alert("O LOGIN FOI INICIADO");
 
         setError("");
         setLoading(true);
 
-        console.log("1 - começando login");
-        const csrfToken = await getCSRFToken();
-        alert("CSRF RECEBIDO: " + csrfToken);
-        console.log("2 - CSRF recebido:", csrfToken);
+        try {
+            const csrfToken = await getCSRFToken();
 
-        const response = await fetch(`${API_URL}/login/`, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken,
-            },
-            body: JSON.stringify({
-                username,
-                password,
-            }),
-        });
+            const response = await fetch(`${API_URL}/login/`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken,
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            });
 
-        alert("LOGIN RESPONDEU: " + response.status);
+            const data = await response.json();
 
-        console.log("3 - resposta do login:", response.status);
-        const texto = await response.text();
+            if (!response.ok) {
+                setError(data.error || "Erro ao fazer login.");
+                setLoading(false);
+                return;
+            }
 
-        alert("RESPOSTA DO SERVIDOR: " + texto);
+            onLoginSuccess();
 
-        if (!response.ok) {
-            setError(data.error || "Erro ao fazer login.");
+        } catch (error) {
+            setError("Erro de conexão com o servidor.");
             setLoading(false);
-            return;
         }
-
-        onLoginSuccess();
-        setLoading(false);
     }
 
     return (

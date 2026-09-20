@@ -44,13 +44,17 @@ def login_view(request):
     return JsonResponse({
         "message": "Login realizado com sucesso.",
         "username": user.username,
-        "session_key": request.session.session_key,
     })
 
 
 def me_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse(
+            {"authenticated": False},
+            status=401,
+        )
+
     return JsonResponse({
-        "authenticated": request.user.is_authenticated,
-        "username": request.user.username if request.user.is_authenticated else None,
-        "cookies": list(request.COOKIES.keys()),
+        "authenticated": True,
+        "username": request.user.username,
     })
