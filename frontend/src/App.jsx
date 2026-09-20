@@ -121,7 +121,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch(`${API_URL}/api/accounts/csrf/`, {
+    fetch(`${API_URL}/api/csrf/`, {
       credentials: "include",
     })
       .then(response => response.json())
