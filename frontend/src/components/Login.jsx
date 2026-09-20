@@ -17,7 +17,7 @@ function Login({ onLoginSuccess }) {
         });
 
         const data = await response.json();
-        
+
         console.log("RESPOSTA DO LOGIN:", data);
 
         return data.csrfToken;
@@ -51,8 +51,11 @@ function Login({ onLoginSuccess }) {
                 password,
             }),
         });
+        
         console.log("3 - resposta do login:", response.status);
         const data = await response.json();
+
+        alert(JSON.stringify(data));
 
         if (!response.ok) {
             setError(data.error || "Erro ao fazer login.");
