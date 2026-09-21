@@ -16,9 +16,6 @@ function Login({ onLoginSuccess }) {
 
         const data = await response.json();
 
-        // Safari/iPhone pode não guardar automaticamente
-        // o cookie CSRF enviado pelo Django.
-        document.cookie = `csrftoken=${data.csrfToken}; Path=/; Secure; SameSite=Lax`;
 
         return data.csrfToken;
     }
@@ -58,8 +55,7 @@ function Login({ onLoginSuccess }) {
                 setLoading(false);
                 return;
             }
-            
-            await getCSRFToken();
+
             onLoginSuccess();
 
         } catch (error) {
