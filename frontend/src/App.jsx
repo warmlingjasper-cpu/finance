@@ -21,16 +21,22 @@ function getCookie(name) {
   return null
 }
 
-let csrfToken = null
-
 async function apiFetch(url, options = {}) {
   const headers = {
     "Content-Type": "application/json",
     ...(options.headers || {}),
   }
 
-  if (csrfToken) {
-    headers["X-CSRFToken"] = csrfToken
+  const method = options.method || "GET"
+
+  if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+    const csrfResponse = await fetch(`${API_URL}/csrf/`, {
+      credentials: "include",
+    })
+
+    const csrfData = await csrfResponse.json()
+
+    headers["X-CSRFToken"] = csrfData.csrfToken
   }
 
   return fetch(url, {
