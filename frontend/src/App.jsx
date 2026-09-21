@@ -99,7 +99,7 @@ function App() {
   useEffect(() => {
 
     // VERIFICAR AUTENTICAÇÃO
-    fetch(`${API_URL}/api/me/`, {
+    fetch(`${API_URL}/me/`, {
       credentials: 'include',
     })
       .then(response => {
@@ -123,7 +123,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch(`${API_URL}/api/csrf/`, {
+    fetch(`${API_URL}/csrf/`, {
       credentials: "include",
     })
       .then(response => response.json())
@@ -141,7 +141,7 @@ function App() {
 
     
     // RECEITAS
-    fetch(`${API_URL}/api/receitas/`, {
+    fetch(`${API_URL}/receitas/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -168,7 +168,7 @@ function App() {
 
 
     // DESPESAS
-    fetch(`${API_URL}/api/despesas/`, {
+    fetch(`${API_URL}/despesas/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -195,7 +195,7 @@ function App() {
 
 
     // INVESTIMENTOS
-    fetch(`${API_URL}/api/investimentos/`, {
+    fetch(`${API_URL}/investimentos/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -222,7 +222,7 @@ function App() {
 
 
     // FUNDO DE EMERGÊNCIA
-    fetch(`${API_URL}/api/fundo/`, {
+    fetch(`${API_URL}/fundo/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -248,7 +248,7 @@ function App() {
       })
 
     // RECEITAS PLANEJADAS
-    fetch(`${API_URL}/api/receitas-planejadas/`, {
+    fetch(`${API_URL}/receitas-planejadas/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -275,7 +275,7 @@ function App() {
 
 
     // DESPESAS PLANEJADAS
-    fetch(`${API_URL}/api/despesas-planejadas/`, {
+    fetch(`${API_URL}/despesas-planejadas/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -302,7 +302,7 @@ function App() {
 
 
     // INVESTIMENTOS PLANEJADOS
-    fetch(`${API_URL}/api/investimentos-planejados/`, {
+    fetch(`${API_URL}/investimentos-planejados/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -329,7 +329,7 @@ function App() {
 
 
     // FUNDO PLANEJADO
-    fetch(`${API_URL}/api/fundo-planejado/`, {
+    fetch(`${API_URL}/fundo-planejado/`, {
       credentials: 'include',
     })
       .then(response => response.json())
@@ -362,7 +362,7 @@ function App() {
   console.log('FUNDO:', fundoEmergencia)
 
   async function fazerLogout() {
-    await apiFetch(`${API_URL}/api/logout/`, {
+    await apiFetch(`${API_URL}/logout/`, {
       method: 'POST',
     })
 
@@ -379,7 +379,7 @@ function App() {
     if (valorReceita === '') return
 
 
-    apiFetch(`${API_URL}/api/receitas/`, {
+    apiFetch(`${API_URL}/receitas/`, {
       method: 'POST',
       body: JSON.stringify({
         descricao: descricaoReceita,
@@ -416,7 +416,7 @@ function App() {
   }
 
   function removerReceita(id) {
-    apiFetch(`${API_URL}/api/receitas/${id}/`, {
+    apiFetch(`${API_URL}/receitas/${id}/`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -437,7 +437,7 @@ function App() {
   function adicionarDespesa() {
     if (valorDespesa === '') return
 
-    apiFetch(`${API_URL}/api/despesas/`, {
+    apiFetch(`${API_URL}/despesas/`, {
       method: 'POST',
       body: JSON.stringify({
         descricao: descricaoDespesa,
@@ -472,7 +472,7 @@ function App() {
   }
 
   function removerDespesa(id) {
-    apiFetch(`${API_URL}/api/despesas/${id}/`, {
+    apiFetch(`${API_URL}/despesas/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -494,7 +494,7 @@ function App() {
   function adicionarInvestimento() {
     if (valorInvestimento === '') return
 
-    apiFetch(`${API_URL}/api/investimentos/`, {
+    apiFetch(`${API_URL}/investimentos/`, {
       method: 'POST',
       body: JSON.stringify({
         descricao: descricaoInvestimento,
@@ -526,7 +526,7 @@ function App() {
 
 
   function removerInvestimento(id) {
-    apiFetch(`${API_URL}/api/investimentos/${id}/`, {
+    apiFetch(`${API_URL}/investimentos/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -547,7 +547,7 @@ function App() {
   function adicionarFundo() {
     if (valorFundo === '') return
 
-    apiFetch(`${API_URL}/api/fundo/`, {
+    apiFetch(`${API_URL}/fundo/`, {
       method: 'POST',
       body: JSON.stringify({
         descricao: descricaoFundo,
@@ -579,7 +579,7 @@ function App() {
 
 
   function removerFundo(id) {
-    apiFetch(`${API_URL}/api/fundo/${id}/`, {
+    apiFetch(`${API_URL}/fundo/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -599,7 +599,7 @@ function App() {
   function adicionarReceitaPlanejada() {
     if (valorReceitaPlanejada === '') return
 
-    apiFetch(`${API_URL}/api/receitas-planejadas/`, {
+    apiFetch(`${API_URL}/receitas-planejadas/`, {
       method: 'POST',
 
       body: JSON.stringify({
@@ -631,7 +631,7 @@ function App() {
   }
 
   function removerReceitaPlanejada(id) {
-    apiFetch(`${API_URL}/api/receitas-planejadas/${id}/`, {
+    apiFetch(`${API_URL}/receitas-planejadas/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -647,7 +647,7 @@ function App() {
   function adicionarDespesaPlanejada() {
     if (valorDespesaPlanejada === '') return
 
-    apiFetch(`${API_URL}/api/despesas-planejadas/`, {
+    apiFetch(`${API_URL}/despesas-planejadas/`, {
       method: 'POST',
 
       body: JSON.stringify({
@@ -679,7 +679,7 @@ function App() {
   }
 
   function removerDespesaPlanejada(id) {
-    apiFetch(`${API_URL}/api/despesas-planejadas/${id}/`, {
+    apiFetch(`${API_URL}/despesas-planejadas/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -695,7 +695,7 @@ function App() {
   function adicionarInvestimentoPlanejado() {
     if (valorInvestimentoPlanejado === '') return
 
-    apiFetch(`${API_URL}/api/investimentos-planejados/`, {
+    apiFetch(`${API_URL}/investimentos-planejados/`, {
       method: 'POST',
 
       body: JSON.stringify({
@@ -727,7 +727,7 @@ function App() {
   }
 
   function removerInvestimentoPlanejado(id) {
-    apiFetch(`${API_URL}/api/investimentos-planejados/${id}/`, {
+    apiFetch(`${API_URL}/investimentos-planejados/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -743,7 +743,7 @@ function App() {
   function adicionarFundoPlanejado() {
     if (valorFundoPlanejado === '') return
 
-    apiFetch(`${API_URL}/api/fundo-planejado/`, {
+    apiFetch(`${API_URL}/fundo-planejado/`, {
       method: 'POST',
 
       body: JSON.stringify({
@@ -775,7 +775,7 @@ function App() {
   }
 
   function removerFundoPlanejado(id) {
-    apiFetch(`${API_URL}/api/fundo-planejado/${id}/`, {
+    apiFetch(`${API_URL}/fundo-planejado/${id}/`, {
       method: 'DELETE',
     })
       .then(() => {
