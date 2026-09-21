@@ -564,7 +564,7 @@ function App() {
           valor: Number(data.valor)
         }
 
-        setFundo(prev => ({
+        setFundoEmergencia(prev => ({
           ...prev,
           [mes]: [
             ...(prev[mes] || []),
@@ -583,7 +583,7 @@ function App() {
       method: 'DELETE',
     })
       .then(() => {
-        setFundo(prev => ({
+        setFundoEmergencia(prev => ({
           ...prev,
           [mes]: prev[mes].filter(
             fundo => fundo.id !== id
