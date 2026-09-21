@@ -58,7 +58,8 @@ function Login({ onLoginSuccess }) {
                 setLoading(false);
                 return;
             }
-
+            
+            await getCSRFToken();
             onLoginSuccess();
 
         } catch (error) {
