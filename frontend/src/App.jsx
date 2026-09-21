@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import API_URL from './api';
+console.log("API_URL:", API_URL)
+
 import meses from './data/data'
 import Login from "./components/Login";
 
